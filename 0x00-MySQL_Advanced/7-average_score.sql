@@ -1,4 +1,5 @@
 -- Definition of the stored procedure
+drop procedure IF EXISTS ComputeAverageScoreForUser;
 DELIMITER //
 
 CREATE PROCEDURE ComputeAverageScoreForUser(
