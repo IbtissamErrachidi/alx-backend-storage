@@ -1,4 +1,5 @@
 import redis
+from typing import Union
 import uuid
 #!/usr/bin/env python3
 """
