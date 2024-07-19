@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 import redis
 import uuid
 from typing import Union, Callable, Optional
-#!/usr/bin/env python3
+from functools import wraps
 """
 Contains the class definition for redis cache
 """
@@ -15,7 +16,8 @@ class Cache:
         """
         self._redis = redis.Redis()
         self._redis.flushdb()
-
+ 
+    @count_calls
     def store(self, data: Union[str, bytes, int, float]) -> str:
         """
         Store data in redis cache
@@ -46,3 +48,19 @@ class Cache:
         Get data as integer from redis cache
         """
         data = self
+
+
+def count_calls(method: Callable) -> Callable:
+    """
+    Counts the number of times a function is called
+    """
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        """
+        Wrapper function for the decorated function
+        """
+        key = method.__qualname__
+        self._redis.incr(key)
+        return method(self, *args, **kwargs)
+
+    return wrapper
