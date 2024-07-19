@@ -1,6 +1,6 @@
 import redis
-from typing import Union
 import uuid
+from typing import Union, Callable, Optional
 #!/usr/bin/env python3
 """
 Contains the class definition for redis cache
